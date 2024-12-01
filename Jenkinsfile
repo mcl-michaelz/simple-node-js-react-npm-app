@@ -64,8 +64,7 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: "${SSH_CREDENTIALS_ID}", keyFileVariable: 'PK')]) {
                     sh '''
                         ssh -i $PK -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" ${DOCKER_SWARM_MANAGER} "
-                        docker service update --image ${NEXUS_URL}/${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME} ||
-                        docker service create --name ${IMAGE_NAME} --replicas 3 ${NEXUS_URL}/${IMAGE_NAME}:${IMAGE_TAG}"
+                        docker stack deploy mz-react-todo --compose-file docker-swarm-compose.yml
                     '''
                 }
             }

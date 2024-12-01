@@ -12,11 +12,10 @@ pipeline {
         stage('Clone Repo'){
             steps{
                 echo "Cloning source code ..."
-                /*
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'systemservices-github', url: 'git@github.com:mcl-michaelz/simple-node-js-react-npm-app.git']])
+                /*
+                git branch: 'master', credentialsId: 'systemservices-github', url: 'git@github.com:mcl-michaelz/simple-node-js-react-npm-app.git'                
                 */
-                git branch: 'master', credentialsId: 'systemservices-github', url: 'git@github.com:mcl-michaelz/simple-node-js-react-npm-app.git'
-                
             }
         }
         stage('Build App'){

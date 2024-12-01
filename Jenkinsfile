@@ -70,10 +70,6 @@ pipeline {
         }
     }
     post {
-        always {
-        }
-        success {
-        }
         failure {
             echo 'This will run only if failed'
             mail to: 'michael.zhang@mclarens.co.nz',

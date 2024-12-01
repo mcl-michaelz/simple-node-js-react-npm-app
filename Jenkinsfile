@@ -11,8 +11,6 @@ pipeline {
     stages {
         stage('Clone Repo'){
             steps{
-                echo "Clean the workspace"
-                deleteDir()
                 echo "Cloning source code ..."
                 /*
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'systemservices-github', url: 'git@github.com:mcl-michaelz/simple-node-js-react-npm-app.git']])
@@ -83,6 +81,10 @@ pipeline {
             mail to: 'michael.zhang@mclarens.co.nz',
                  subject: "Failed pipeline: ${currentBuild.fullDisplayName}",
                  body: "Something is wrong with ${env.BUILD_URL}"
+        }
+        cleanup {
+            echo "Clean the workspace"
+            deleteDir()
         }
     }
 }

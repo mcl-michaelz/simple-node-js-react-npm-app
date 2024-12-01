@@ -11,8 +11,11 @@ pipeline {
     stages {
         stage('Clone Repo'){
             steps{
+                cleanWs() // Clean up workspace
                 echo "Cloning source code ..."
                 checkout scm
+                echo "SCM URL: ${scm.userRemoteConfigs[0].url}"
+                sh 'git status && git log -1'
                 /*
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'systemservices-github', url: 'git@github.com:mcl-michaelz/simple-node-js-react-npm-app.git']])
                 git branch: 'master', credentialsId: 'systemservices-github', url: 'git@github.com:mcl-michaelz/simple-node-js-react-npm-app.git'                

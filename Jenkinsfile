@@ -14,7 +14,10 @@ pipeline {
                 echo "Clean the workspace"
                 deleteDir()
                 echo "Cloning source code ..."
+                checkout scm
+                /*
                 git branch: 'master', credentialsId: 'systemservices-github', url: 'git@github.com:mcl-michaelz/simple-node-js-react-npm-app.git'
+                */
             }
         }
         stage('Build App'){

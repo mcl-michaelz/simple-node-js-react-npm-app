@@ -13,13 +13,13 @@ pipeline {
             steps{
                 cleanWs() // Clean up workspace
                 echo "Cloning source code ..."
-                checkout scm
-                echo "SCM URL: ${scm.userRemoteConfigs[0].url}"
-                sh 'git status && git log -1'
                 /*
-                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'systemservices-github', url: 'git@github.com:mcl-michaelz/simple-node-js-react-npm-app.git']])
-                git branch: 'master', credentialsId: 'systemservices-github', url: 'git@github.com:mcl-michaelz/simple-node-js-react-npm-app.git'                
+                Trid using 'checkout scm' but it returned the following error message:
+                org.codehaus.groovy.control.MultipleCompilationErrorsException: startup failed:
+                WorkflowScript: 20: unexpected token: @ @ line 20, column 151.
+                temservices-github', url: 'git@github.co
                 */
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'systemservices-github', url: 'git@github.com:mcl-michaelz/simple-node-js-react-npm-app.git']])
             }
         }
         stage('Build App'){

@@ -62,6 +62,7 @@ pipeline {
                 echo 'Deploying to Docker Swarm...'
                 withCredentials([sshUserPrivateKey(credentialsId: "${SSH_CREDENTIALS_ID}", keyFileVariable: 'PK')]) {
                     sh '''
+                        cd "%WORKSPACE%"
                         scp -i $PK -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" docker-swarm-compose.yml ${DOCKER_SWARM_MANAGER}:/tmp/${IMAGE_NAME}-docker-swarm-compose.yml
                         ssh -i $PK -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" ${DOCKER_SWARM_MANAGER} "
                         mkdir -pv /opt/ceph-data/SwarmDEV/mz-react-todo/

@@ -64,6 +64,7 @@ pipeline {
                     sh '''
                         ssh -i $PK -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" ${DOCKER_SWARM_MANAGER} "
                         docker stack deploy mz-react-todo --compose-file docker-swarm-compose.yml
+                        "
                     '''
                 }
             }

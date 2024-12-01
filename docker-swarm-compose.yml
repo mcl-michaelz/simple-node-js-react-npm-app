@@ -1,0 +1,26 @@
+services:
+  app:
+    image: nginx-nexus.connectme365.com/hosted/mz-react-todo:latest
+    expose:
+      - 3000
+    networks:
+      - rd_swarm_public
+    deploy:
+      mode: replicated
+      replicas: 3
+      labels:
+        # Explicitly tell Traefik to expose this container
+        traefik.enable: "true"
+        traefik.docker.network: rd_swarm_public
+
+        # The domain the service will respond to
+        traefik.http.routers.mz-react-todo.rule: Host(`mz-react-todo.connectme365.com`)
+        # Allow request only from the predefined entry point named "https"
+        traefik.http.routers.mz-react-todo.entrypoints: https
+        traefik.http.routers.mz-react-todo.tls: true
+
+        # Send traffic to the container via port 8080
+        traefik.http.services.mz-react-todo.loadbalancer.server.port: 3000
+networks:
+  rd_swarm_public:
+    external: true

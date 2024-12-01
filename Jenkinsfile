@@ -32,19 +32,18 @@ pipeline {
             }
             steps {
                 echo "Building React App ..."
-                sh '''
-                    pwd & ls -l
-                    npm install
-                    npm run build
-                '''
+                sh 'npm install && npm run build'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh './jenkins/scripts/test.sh'
             }
         }
         stage('Build Docker Image') {
             steps {
                 echo 'Building Docker image...'
-                sh '''
-                    docker build -t ${NEXUS_URL}/${IMAGE_NAME}:${IMAGE_TAG} .
-                '''
+                sh 'docker build -t ${NEXUS_URL}/${IMAGE_NAME}:${IMAGE_TAG} .'
             }
         }
         stage('Push Image to Nexus') {
